@@ -1,14 +1,4 @@
 var app = {
-
-    findByName: function() {
-		var self = this;
-        console.log('findByName');
-        this.store.findByName($('.search-key').val(), function(employees) {
-			$('.employee-list').html(self.employeeLiTpl(employees));
-		
-		self.alert('I am here 2', 'Info');
-        });
-    },
 	
 	showAlert: function (message, title) {
 		if (navigator.notification) {
@@ -18,19 +8,13 @@ var app = {
 		}
 	},
 	
-	renderHomeView: function() {
-		var self = this;
-		$('body').html(this.homeTpl());
-		$('.search-key').on('keyup', $.proxy(this.findByName, this));
-	},
+
 
     initialize: function() {
 		var self = this;
-        this.store = new MemoryStore();
-		this.homeTpl = Handlebars.compile($("#home-tpl").html());
-		this.employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
+        this.store = new MemoryStore();	
 		this.store = new MemoryStore(function() {
-			self.renderHomeView();
+			$('body').html(new HomeView(self.store).render().el);
 		});
     }
 
