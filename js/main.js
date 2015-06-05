@@ -1,9 +1,12 @@
 var app = {
 
     findByName: function() {
+		var self = this;
         console.log('findByName');
         this.store.findByName($('.search-key').val(), function(employees) {
 			$('.employee-list').html(self.employeeLiTpl(employees));
+		
+		self.alert('I am here 2', 'Info');
         });
     },
 	
